@@ -1,35 +1,26 @@
 import {
-    FETCH_SMURF_SUCCESS, 
-    FETCH_SMURF_START, 
-    FETCH_SMURF_FAILURE,
+    FETCH_SMURFS,
+    POST_SMURF
 } from '../actions';
 
 const initialState = {
-    smurf: null,
-    isFetching: false,
-    error: ''
+    smurf: []
 }
 
 const reducer = (state = initialState, action) => {
     switch(action.type){
-        case FETCH_SMURF_START:
+        case FETCH_SMURFS:
             return {
-                ...state,
-                isFetching: true
+                smurf: action.payload
             };
-        case FETCH_SMURF_SUCCESS:
-            return {
+        case POST_SMURF:
+            return{
                 ...state,
-                smurf: action.payload,
-                isFetching: false,
-                err: ''
-            };
-        case FETCH_SMURF_FAILURE:
-            return {
-                ...state,
-                isFetching: false,
-                err: action.payload
-            }; 
+                smurf: [
+                    ...state.smurf,
+                    action.payload
+                ]
+            }
         default:
             return state;
     };
